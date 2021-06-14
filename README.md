@@ -1,0 +1,1 @@
+# notify-atcoder-ratechange
