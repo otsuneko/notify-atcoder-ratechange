@@ -65,3 +65,4 @@ if not res:
         message += "(" + str(new_rating-old_rating) +") :("
 
     line_notify(message)
+    
