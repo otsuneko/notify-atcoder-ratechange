@@ -6,6 +6,8 @@ from requests.api import request
 # Connect to Heroku PostgreSQL DB
 def connect():
     con = psycopg2.connect(os.environ['DATABASE_URL'])
+    # for local test
+    # con = psycopg2.connect(dbname="notify-atcoder-ratechange", host="localhost", user="postgres", password="xxx")
     return con
 
 # Search a record from connected DB
@@ -24,14 +26,17 @@ def insert_DB(con, sql, data):
 # Send a notification to LINE
 def line_notify(message):
     line_notify_token = os.environ['LINE_NOTIFY_API_KEY']
+    # for local test
+    # line_notify_token = "xxx"
     line_notify_api = 'https://notify-api.line.me/api/notify'
     payload = {'message': message}
     headers = {'Authorization': 'Bearer ' + line_notify_token}
     requests.post(line_notify_api, data=payload, headers=headers)
 
-
 # 1. Get Atcoder rating change history
 user_name = os.environ['ATCODER_USER_NAME']
+# for local test
+# user_name = "xxx"
 response = requests.get("https://atcoder.jp/users/" + user_name + "/history/json")
 json_data = response.json()
 latest_contest_info = json_data[-1]
@@ -45,7 +50,7 @@ new_rating = latest_contest_info["NewRating"]
 
 # 2. Check if latest contestId exists in DB. If not, insert the record and send the notification with LINE Notify
 con = connect()
-sql_search_latest_contest_info = "SELECT * FROM contests WHERE contest_id=" + str(contest_screen_name)
+sql_search_latest_contest_info = "SELECT * FROM contests WHERE contest_screen_name='" + str(contest_screen_name) + "'"
 res = search_DB(con,sql_search_latest_contest_info)
 
 # If there is an update
