@@ -61,13 +61,14 @@ if not res:
     insert_DB(con, sql_insert_latest_contest_info, insert_info)
 
     # send the Notification to LINE
-    message = "\n" + contest_name + "\n" + "順位：" + str(place) + "位\n" + "パフォーマンス" + str(performance) + "相当\n" + "レーティング：" + str(old_rating) + "→" + str(new_rating)
+    message = "\n" + contest_name + "\n" + "順位：" + str(place) + "位\n" + "パフォーマンス：" + str(performance) + "相当\n" + "レーティング：" + str(old_rating) + "→" + str(new_rating)
     if old_rating < new_rating:
         message += "(+" + str(new_rating-old_rating) + ") :)"
     elif old_rating == new_rating:
         message += "(±0) :|"
     else:
         message += "(" + str(new_rating-old_rating) +") :("
-
+    message += "\n" + "https://atcoder.jp/users/" + user_name + "/history"
+    
     line_notify(message)
     
