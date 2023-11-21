@@ -3,6 +3,8 @@
 AtCoderのレート更新有無がないか定期的に非公式API(atcoder.jp/users/ユーザ名/history/json)を叩いて確認し、更新があった場合LINEに通知してくれるツールです。
 [Codeforces版](https://github.com/otsuneko/notify-cf-ratechange)
 
+2023/11/21追記：Herokuのサービス有料化を受け、PostgreSQLが無償利用できなくなりました。移行先としてはhttps://render.com/　等があるようです。
+
 ## 必要なもの
 
 - Githubアカウント
